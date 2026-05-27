@@ -403,6 +403,13 @@ Freemium model.
 - Syntax highlighting for code blocks.
 - **References:** Notion, Linear, Raycast.
 
+### Screenshots
+
+Use the screenshots below as a reference for the dashboard UI. An exact match isn't required:
+
+- @context/screenshots/dashboard-ui-main.jpeg
+- @context/screenshots/dashboard-ui-drawer.jpeg
+
 ### Layout
 
 - **Sidebar + main content**, collapsible sidebar.
