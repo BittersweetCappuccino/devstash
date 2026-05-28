@@ -1,4 +1,4 @@
-import { Plus, Search } from "lucide-react";
+import { FolderPlus, Plus, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,14 +13,15 @@ export function TopBar() {
         <Input
           type="search"
           placeholder="Search items..."
-          className="h-9 pl-9 pr-14"
+          className="h-9 pl-9"
         />
-        <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 select-none rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-          ⌘K
-        </kbd>
       </div>
 
       <div className="ml-auto flex items-center gap-2">
+        <Button variant="outline" size="sm">
+          <FolderPlus />
+          New Collection
+        </Button>
         <Button variant="outline" size="sm">
           <Plus />
           New Item
