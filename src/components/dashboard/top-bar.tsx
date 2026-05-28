@@ -8,7 +8,7 @@ export function TopBar() {
   return (
     <header className="flex h-14 items-center gap-3 border-b border-border bg-background px-4">
       <SidebarTrigger className="md:hidden" />
-      <div className="relative flex-1 max-w-2xl">
+      <div className="relative flex-1 max-w-126">
         <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           type="search"
