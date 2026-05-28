@@ -36,6 +36,7 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import {
@@ -91,6 +92,7 @@ export function AppSidebar() {
             DevStash
           </span>
         </div>
+        <SidebarTrigger className="ml-auto md:hidden" />
       </SidebarHeader>
 
       <SidebarContent>
