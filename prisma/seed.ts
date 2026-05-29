@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
+import bcrypt from "bcryptjs";
 
 import { PrismaClient } from "../src/generated/prisma/client";
 import {
@@ -8,6 +9,8 @@ import {
   items,
   itemTypes,
 } from "../src/lib/mock-data";
+
+const DEMO_USER_PASSWORD = "IsNotEasy67";
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
@@ -19,16 +22,22 @@ const prisma = new PrismaClient({
 });
 
 async function seedUser() {
+  const hashedPassword = await bcrypt.hash(DEMO_USER_PASSWORD, 12);
+  const emailVerified = new Date();
+
+  const data = {
+    name: currentUser.name,
+    email: currentUser.email,
+    image: currentUser.image,
+    isPro: currentUser.isPro,
+    hashedPassword,
+    emailVerified,
+  };
+
   await prisma.user.upsert({
     where: { id: currentUser.id },
-    update: {},
-    create: {
-      id: currentUser.id,
-      name: currentUser.name,
-      email: currentUser.email,
-      image: currentUser.image,
-      isPro: currentUser.isPro,
-    },
+    update: data,
+    create: { id: currentUser.id, ...data },
   });
 }
 
