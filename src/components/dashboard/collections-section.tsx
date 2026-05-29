@@ -1,10 +1,8 @@
 import { CollectionCard } from "@/components/dashboard/collection-card";
-import { collections } from "@/lib/mock-data";
+import { getDashboardCollections } from "@/lib/db/collections";
 
-export function CollectionsSection() {
-  const recent = [...collections].sort(
-    (a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()
-  );
+export async function CollectionsSection() {
+  const collections = await getDashboardCollections();
 
   return (
     <section className="space-y-3">
@@ -18,7 +16,7 @@ export function CollectionsSection() {
         </a>
       </div>
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {recent.map((c) => (
+        {collections.map((c) => (
           <CollectionCard key={c.id} collection={c} />
         ))}
       </div>
