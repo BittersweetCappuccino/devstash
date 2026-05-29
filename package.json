@@ -12,7 +12,8 @@
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
-    "db:status": "prisma migrate status"
+    "db:status": "prisma migrate status",
+    "db:test": "tsx scripts/test-db.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
