@@ -23,3 +23,4 @@
 - **2026-05-27** — Dashboard UI Phase 1: ShadCN setup, `/dashboard` route, base layout with dark mode, display-only top bar, sidebar/main placeholders (Completed)
 - **2026-05-28** — Dashboard UI Phase 2: Collapsible sidebar with item types, favorite/recent collections, user avatar area; sidebar toggle moved to top bar for persistent visibility; collections section hidden in icon-collapsed state (Completed)
 - **2026-05-28** — Dashboard UI Phase 3: Main area with 4 stats cards, collections grid (color-coded by default type), pinned items, and 10 most recent items (Completed)
+- **2026-05-29** — Database Setup: Prisma 7 + Neon PostgreSQL with initial schema, NextAuth v5 models, `prisma.config.ts`, `PrismaPg` driver adapter singleton, seed script, and `20260529025256_init` migration applied to dev branch (Completed)
