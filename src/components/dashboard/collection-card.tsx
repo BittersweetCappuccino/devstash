@@ -3,13 +3,13 @@ import { MoreHorizontal, Star } from "lucide-react";
 import { TypeIcon, getItemType } from "@/components/dashboard/type-icon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { items, type Collection } from "@/lib/mock-data";
+import type { DashboardCollection } from "@/lib/db/collections";
 
-export function CollectionCard({ collection }: { collection: Collection }) {
-  const colItems = items.filter((i) => collection.itemIds.includes(i.id));
-  const uniqueTypeIds = Array.from(
-    new Set(colItems.map((i) => i.itemTypeId))
-  );
+export function CollectionCard({
+  collection,
+}: {
+  collection: DashboardCollection;
+}) {
   const defaultType = collection.defaultTypeId
     ? getItemType(collection.defaultTypeId)
     : undefined;
@@ -40,16 +40,16 @@ export function CollectionCard({ collection }: { collection: Collection }) {
           </Button>
         </div>
         <span className="text-xs text-muted-foreground">
-          {collection.itemIds.length} items
+          {collection.itemCount} items
         </span>
         {collection.description ? (
           <p className="line-clamp-1 text-sm text-muted-foreground">
             {collection.description}
           </p>
         ) : null}
-        {uniqueTypeIds.length > 0 ? (
+        {collection.typeIds.length > 0 ? (
           <div className="mt-1 flex items-center gap-2">
-            {uniqueTypeIds.map((typeId) => (
+            {collection.typeIds.map((typeId) => (
               <TypeIcon key={typeId} typeId={typeId} className="size-4" />
             ))}
           </div>

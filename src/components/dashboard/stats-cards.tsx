@@ -1,12 +1,15 @@
 import { Bookmark, Folder, Layers, Star } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
-import { collections, items } from "@/lib/mock-data";
+import { getCollectionStats } from "@/lib/db/collections";
+import { items } from "@/lib/mock-data";
 
-export function StatsCards() {
+export async function StatsCards() {
+  const collectionStats = await getCollectionStats();
+
   const stats = [
     { label: "Items", value: items.length, Icon: Layers },
-    { label: "Collections", value: collections.length, Icon: Folder },
+    { label: "Collections", value: collectionStats.total, Icon: Folder },
     {
       label: "Favorite Items",
       value: items.filter((i) => i.isFavorite).length,
@@ -14,7 +17,7 @@ export function StatsCards() {
     },
     {
       label: "Favorite Collections",
-      value: collections.filter((c) => c.isFavorite).length,
+      value: collectionStats.favorites,
       Icon: Star,
     },
   ];

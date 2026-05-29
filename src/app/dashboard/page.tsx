@@ -5,6 +5,8 @@ import { ItemsSection } from "@/components/dashboard/items-section";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { items } from "@/lib/mock-data";
 
+export const dynamic = "force-dynamic";
+
 export default function DashboardPage() {
   const pinnedItems = items.filter((i) => i.isPinned);
   const recentItems = [...items]
