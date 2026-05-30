@@ -1,5 +1,5 @@
 import { ItemCard } from "@/components/dashboard/item-card";
-import type { Item } from "@/lib/mock-data";
+import type { DashboardItem } from "@/lib/db/items";
 
 export function ItemsSection({
   title,
@@ -8,7 +8,7 @@ export function ItemsSection({
 }: {
   title: string;
   icon?: React.ReactNode;
-  items: Item[];
+  items: DashboardItem[];
 }) {
   if (items.length === 0) return null;
 

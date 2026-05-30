@@ -2,17 +2,20 @@ import { Bookmark, Folder, Layers, Star } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { getCollectionStats } from "@/lib/db/collections";
-import { items } from "@/lib/mock-data";
+import { getItemStats } from "@/lib/db/items";
 
 export async function StatsCards() {
-  const collectionStats = await getCollectionStats();
+  const [itemStats, collectionStats] = await Promise.all([
+    getItemStats(),
+    getCollectionStats(),
+  ]);
 
   const stats = [
-    { label: "Items", value: items.length, Icon: Layers },
+    { label: "Items", value: itemStats.total, Icon: Layers },
     { label: "Collections", value: collectionStats.total, Icon: Folder },
     {
       label: "Favorite Items",
-      value: items.filter((i) => i.isFavorite).length,
+      value: itemStats.favorites,
       Icon: Bookmark,
     },
     {

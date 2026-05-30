@@ -3,15 +3,15 @@ import { Pin } from "lucide-react";
 import { CollectionsSection } from "@/components/dashboard/collections-section";
 import { ItemsSection } from "@/components/dashboard/items-section";
 import { StatsCards } from "@/components/dashboard/stats-cards";
-import { items } from "@/lib/mock-data";
+import { getPinnedItems, getRecentItems } from "@/lib/db/items";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
-  const pinnedItems = items.filter((i) => i.isPinned);
-  const recentItems = [...items]
-    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
-    .slice(0, 10);
+export default async function DashboardPage() {
+  const [pinnedItems, recentItems] = await Promise.all([
+    getPinnedItems(),
+    getRecentItems(),
+  ]);
 
   return (
     <div className="space-y-6">
