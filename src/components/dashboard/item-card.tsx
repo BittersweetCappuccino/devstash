@@ -3,14 +3,14 @@ import { Pin, Star } from "lucide-react";
 import { TypeIcon, getItemType } from "@/components/dashboard/type-icon";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import type { Item } from "@/lib/mock-data";
+import type { DashboardItem } from "@/lib/db/items";
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "numeric",
 });
 
-export function ItemCard({ item }: { item: Item }) {
+export function ItemCard({ item }: { item: DashboardItem }) {
   const type = getItemType(item.itemTypeId);
   const color = type?.color ?? "transparent";
 
