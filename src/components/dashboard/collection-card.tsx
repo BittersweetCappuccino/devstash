@@ -1,17 +1,20 @@
 import { MoreHorizontal, Star } from "lucide-react";
 
-import { TypeIcon, getItemType } from "@/components/dashboard/type-icon";
+import { TypeIcon } from "@/components/dashboard/type-icon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { DashboardCollection } from "@/lib/db/collections";
+import type { ItemTypeMap } from "@/lib/db/items";
 
 export function CollectionCard({
   collection,
+  typeMap,
 }: {
   collection: DashboardCollection;
+  typeMap: ItemTypeMap;
 }) {
   const defaultType = collection.defaultTypeId
-    ? getItemType(collection.defaultTypeId)
+    ? typeMap[collection.defaultTypeId]
     : undefined;
   const borderColor = defaultType?.color ?? "transparent";
 
@@ -50,7 +53,7 @@ export function CollectionCard({
         {collection.typeIds.length > 0 ? (
           <div className="mt-1 flex items-center gap-2">
             {collection.typeIds.map((typeId) => (
-              <TypeIcon key={typeId} typeId={typeId} className="size-4" />
+              <TypeIcon key={typeId} type={typeMap[typeId]} className="size-4" />
             ))}
           </div>
         ) : null}

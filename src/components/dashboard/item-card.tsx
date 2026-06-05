@@ -1,17 +1,23 @@
 import { Pin, Star } from "lucide-react";
 
-import { TypeIcon, getItemType } from "@/components/dashboard/type-icon";
+import { TypeIcon } from "@/components/dashboard/type-icon";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import type { DashboardItem } from "@/lib/db/items";
+import type { DashboardItem, ItemTypeMap } from "@/lib/db/items";
 
 const dateFmt = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "numeric",
 });
 
-export function ItemCard({ item }: { item: DashboardItem }) {
-  const type = getItemType(item.itemTypeId);
+export function ItemCard({
+  item,
+  typeMap,
+}: {
+  item: DashboardItem;
+  typeMap: ItemTypeMap;
+}) {
+  const type = typeMap[item.itemTypeId];
   const color = type?.color ?? "transparent";
 
   return (
@@ -24,7 +30,7 @@ export function ItemCard({ item }: { item: DashboardItem }) {
         className="flex size-9 shrink-0 items-center justify-center rounded-md"
         style={{ backgroundColor: `${color}1f` }}
       >
-        <TypeIcon typeId={item.itemTypeId} className="size-4" />
+        <TypeIcon type={type} className="size-4" />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">

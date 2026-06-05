@@ -1,25 +1,18 @@
 # Current Feature
 
-Stats & Sidebar — wire the dashboard stats cards and the sidebar to real database data instead of `src/lib/mock-data.ts`.
+<!-- Feature name and short description -->
 
 ## Status
 
-Completed
+<!-- Not Started | In Progress | Completed -->
 
 ## Goals
 
-- Stats in the main area display data from the actual database instead of `src/lib/mock-data.ts`, keeping the current design/layout.
-- Sidebar shows real data instead of static/mock data:
-  - System item types with their icons, linking to `/items/[typename]`.
-  - Favorite collections with their star icons.
-  - Collections data from the database.
-- Create `src/lib/db/items.ts` with the needed database functions, using `src/lib/db/collections.ts` as reference.
-- Sidebar items are arranged alphabetically within each dedicated section (Types, Favorites, All Collections).
+<!-- Goals and requirements -->
 
 ## Notes
 
-- References: `src/lib/db/collections.ts`, `context/features/stats-sidebar-spec.md`.
-- Preserve existing design/layout — only swap the data source.
+<!-- Any extra notes -->
 
 ## History
 
@@ -35,3 +28,4 @@ Completed
 - **2026-05-29** — Dashboard Collections: replaced mock collection data in dashboard main area with real Neon data via Prisma; added `src/lib/db/collections.ts` with `getDashboardCollections` (first 6 alphabetically, with per-collection `typeIds` + `itemCount`) and `getCollectionStats`; `CollectionsSection` and `StatsCards` now async server components; dashboard route marked `force-dynamic` (Completed)
 - **2026-05-29** — Dashboard Items: replaced mock pinned/recent item data on the dashboard with real Neon data via Prisma; added `src/lib/db/items.ts` with `getPinnedItems`, `getRecentItems` (limit 10), and `getItemStats`; dashboard page is now an async server component fetching pinned + recent in parallel; `StatsCards` parallelizes item + collection stats; `ItemsSection` and `ItemCard` typed against new `DashboardItem`; pinned section auto-hides when empty (Completed)
 - **2026-06-05** — Stats & Sidebar: wired the sidebar to real Neon data (stats cards were already DB-backed). Added `getSidebarItemTypes` (system types with per-type counts via `groupBy`, derived `/items/<name>s` routes) to `src/lib/db/items.ts`, `getSidebarCollections` to `src/lib/db/collections.ts`, and `getCurrentUser` in new `src/lib/db/user.ts`. Split `AppSidebar` into an async server component (data fetching) + `app-sidebar-client.tsx` (interactivity); removed all `mock-data` usage from the sidebar. Sidebar entries sorted alphabetically per section (Types, Favorites, All Collections) (Completed)
+- **2026-06-05** — Type Icon DB: removed the last `mock-data` dependency from the dashboard UI. Added `getItemTypeMap()` (+ `ItemTypeMeta` / `ItemTypeMap` types) to `src/lib/db/items.ts`; `TypeIcon` is now presentational (takes resolved type meta) and `getItemType` was dropped. `dashboard/page.tsx` fetches the type map once and threads it through `CollectionsSection` / `ItemsSection` into `CollectionCard` / `ItemCard` — no N+1 queries; border colors and type icons render unchanged (Completed)
