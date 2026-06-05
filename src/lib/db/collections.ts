@@ -20,6 +20,13 @@ export interface CollectionStats {
   favorites: number;
 }
 
+export interface SidebarCollection {
+  id: string;
+  name: string;
+  isFavorite: boolean;
+  itemCount: number;
+}
+
 export async function getDashboardCollections({
   userId = DEMO_USER_ID,
   limit = 6,
@@ -66,4 +73,28 @@ export async function getCollectionStats({
   ]);
 
   return { total, favorites };
+}
+
+export async function getSidebarCollections({
+  userId = DEMO_USER_ID,
+}: {
+  userId?: string;
+} = {}): Promise<SidebarCollection[]> {
+  const rows = await prisma.collection.findMany({
+    where: { userId },
+    orderBy: { name: "asc" },
+    select: {
+      id: true,
+      name: true,
+      isFavorite: true,
+      _count: { select: { items: true } },
+    },
+  });
+
+  return rows.map((row) => ({
+    id: row.id,
+    name: row.name,
+    isFavorite: row.isFavorite,
+    itemCount: row._count.items,
+  }));
 }

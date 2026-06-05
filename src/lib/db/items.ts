@@ -21,6 +21,15 @@ export interface ItemStats {
   favorites: number;
 }
 
+export interface SidebarItemType {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+  route: string;
+  count: number;
+}
+
 const dashboardItemSelect = {
   id: true,
   title: true,
@@ -96,4 +105,34 @@ export async function getItemStats({
   ]);
 
   return { total, favorites };
+}
+
+export async function getSidebarItemTypes({
+  userId = DEMO_USER_ID,
+}: {
+  userId?: string;
+} = {}): Promise<SidebarItemType[]> {
+  const [types, counts] = await Promise.all([
+    prisma.itemType.findMany({
+      where: { isSystem: true },
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, icon: true, color: true },
+    }),
+    prisma.item.groupBy({
+      by: ["itemTypeId"],
+      where: { userId },
+      _count: { _all: true },
+    }),
+  ]);
+
+  const countByType = new Map(counts.map((c) => [c.itemTypeId, c._count._all]));
+
+  return types.map((t) => ({
+    id: t.id,
+    name: t.name,
+    icon: t.icon,
+    color: t.color,
+    route: `/items/${t.name.toLowerCase()}s`,
+    count: countByType.get(t.id) ?? 0,
+  }));
 }
