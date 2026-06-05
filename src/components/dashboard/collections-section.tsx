@@ -1,7 +1,12 @@
 import { CollectionCard } from "@/components/dashboard/collection-card";
 import { getDashboardCollections } from "@/lib/db/collections";
+import type { ItemTypeMap } from "@/lib/db/items";
 
-export async function CollectionsSection() {
+export async function CollectionsSection({
+  typeMap,
+}: {
+  typeMap: ItemTypeMap;
+}) {
   const collections = await getDashboardCollections();
 
   return (
@@ -17,7 +22,7 @@ export async function CollectionsSection() {
       </div>
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
         {collections.map((c) => (
-          <CollectionCard key={c.id} collection={c} />
+          <CollectionCard key={c.id} collection={c} typeMap={typeMap} />
         ))}
       </div>
     </section>

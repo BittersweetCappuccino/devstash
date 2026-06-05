@@ -30,6 +30,15 @@ export interface SidebarItemType {
   count: number;
 }
 
+export interface ItemTypeMeta {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+}
+
+export type ItemTypeMap = Record<string, ItemTypeMeta>;
+
 const dashboardItemSelect = {
   id: true,
   title: true,
@@ -135,4 +144,11 @@ export async function getSidebarItemTypes({
     route: `/items/${t.name.toLowerCase()}s`,
     count: countByType.get(t.id) ?? 0,
   }));
+}
+
+export async function getItemTypeMap(): Promise<ItemTypeMap> {
+  const types = await prisma.itemType.findMany({
+    select: { id: true, name: true, icon: true, color: true },
+  });
+  return Object.fromEntries(types.map((t) => [t.id, t]));
 }

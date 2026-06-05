@@ -9,7 +9,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { itemTypes, type ItemType } from "@/lib/mock-data";
+import type { ItemTypeMeta } from "@/lib/db/items";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Code,
@@ -21,20 +21,15 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Link: LinkIcon,
 };
 
-export function getItemType(typeId: string): ItemType | undefined {
-  return itemTypes.find((t) => t.id === typeId);
-}
-
 export function TypeIcon({
-  typeId,
+  type,
   className,
   style,
 }: {
-  typeId: string;
+  type: ItemTypeMeta | undefined;
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const type = getItemType(typeId);
   if (!type) return null;
   const Icon = ICON_MAP[type.icon];
   if (!Icon) return null;
