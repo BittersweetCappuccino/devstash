@@ -18,3 +18,5 @@ keyboard-friendly dashboard that keeps your saved items one search away.
 - **ORM:** Prisma
 - **Database:** PostgreSQL (Neon)
 - **Styling:** Tailwind CSS
+
+*Full credit for the original concept and starting point goes to [Brad Traversy](https://github.com/bradtraversy).*
